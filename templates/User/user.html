@@ -1,0 +1,249 @@
+{% extends 'User/base.html' %}
+{% block body %}
+    <head>
+
+
+  <!-- Google Font: Source Sans Pro -->
+{#  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">#}
+  <!-- Font Awesome -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/fontawesome-free/css/all.min.css">#}
+  <!-- Ionicons -->
+{#  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">#}
+  <!-- Tempusdominus Bootstrap 4 -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">#}
+  <!-- iCheck -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/icheck-bootstrap/icheck-bootstrap.min.css">#}
+  <!-- JQVMap -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/jqvmap/jqvmap.min.css">#}
+  <!-- Theme style -->
+{#  <link rel="stylesheet" href="../static/adminhome1/dist/css/adminlte.min.css">#}
+  <!-- overlayScrollbars -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">#}
+  <!-- Daterange picker -->
+{#  <link rel="stylesheet" href="../static/adminhome1/plugins/daterangepicker/daterangepicker.css">#}
+  <!-- summernote -->
+  <link rel="stylesheet" href="../static/adminhome1/plugins/summernote/summernote-bs4.min.css">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="author" content="colorlib.com">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700" rel="stylesheet" />
+  <link href="../../static/search/css/main.css" rel="stylesheet" />
+
+  <style>
+{#    body {#}
+{#      background-color: #f4f6f9; /* Light background for the body */#}
+{#    }#}
+    .content-wrapper {
+      background: rgba(255, 255, 255, 0.8); /* Transparent background */
+      backdrop-filter: blur(10px); /* Optional blur effect */
+      padding: 20px; /* Padding for content */
+      border-radius: 10px; /* Optional rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    }
+    .inner-form {
+      margin: 0; /* Reset margin */
+      padding: 20px; /* Padding for form */
+      background: rgba(255, 255, 255, 0.9); /* Slightly opaque background for form */
+      border-radius: 8px; /* Rounded corners for form */
+    }
+    .input-field {
+      margin-bottom: 15px; /* Space between input fields */
+    }
+    .product-list {
+      margin-top: 30px;
+    }
+    .product-item {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #000000;
+    }
+    .form-control{
+      background-color: #000000;
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <div class="content-wrapper" style="background-color: rgba(255, 255, 255, 0);">
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 style="margin-top:30px;" class="m-0">User Dashboard</h1>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <section class="content" style="margin-top: 50px;">
+      <div class="container-fluid">
+        <div class="row">
+{#          <section class="col-lg-12 connectedSortable">#}
+            <div class="s10">
+              <form method="GET" action="">
+                <div class="inner-form">
+                  <div class="basic-search">
+                    <div class="input-field">
+                      <input id="search" name="search" type="text" placeholder="Type Keywords" class="form-control" value="{{ request.GET.search }}" />
+                      <div class="icon-wrap">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="advance-search">
+                    <span class="desc"></span>
+                    <div class="row">
+                      <div class="input-field">
+                        <div class="input-select">
+                          <select data-trigger="" name="model">
+                            <option value="">By model</option>
+                            {% for year in years %}
+                            <option value="{{ year }}" {% if request.GET.model == year %}selected{% endif %}>{{ year }}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                      <div class="input-field">
+                        <div class="input-select">
+                          <select data-trigger="" name="color">
+                            <option value="">color</option>
+                            <option value="white" {% if request.GET.color == 'white' %}selected{% endif %}>White</option>
+                            <option value="black" {% if request.GET.color == 'black' %}selected{% endif %}>Black</option>
+                            <option value="yellow" {% if request.GET.color == 'yellow' %}selected{% endif %}>Yellow</option>
+                            <option value="grey" {% if request.GET.color == 'grey' %}selected{% endif %}>Grey</option>
+                            <option value="red" {% if request.GET.color == 'red' %}selected{% endif %}>Red</option>
+                            <option value="blue" {% if request.GET.color == 'blue' %}selected{% endif %}>Blue</option>
+                            <option value="orange" {% if request.GET.color == 'orange' %}selected{% endif %}>Orange</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="input-field">
+                        <div class="input-select">
+                          <select data-trigger="" name="bodytype">
+                            <option value="">By bodytype</option>
+                            <option value="sedan" {% if request.GET.bodytype == 'sedan' %}selected{% endif %}>Sedan</option>
+                            <option value="coupe" {% if request.GET.bodytype == 'coupe' %}selected{% endif %}>Coupe</option>
+                            <option value="suv" {% if request.GET.bodytype == 'suv' %}selected{% endif %}>SUV</option>
+                            <option value="van" {% if request.GET.bodytype == 'van' %}selected{% endif %}>Van</option>
+                            <option value="wagon" {% if request.GET.bodytype == 'wagon' %}selected{% endif %}>Wagon</option>
+                            <option value="sports_car" {% if request.GET.bodytype == 'sports_car' %}selected{% endif %}>Sports Car</option>
+                            <option value="crossover" {% if request.GET.bodytype == 'crossover' %}selected{% endif %}>Crossover</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row second">
+                      <div class="input-field">
+                        <div class="input-select">
+                          <select data-trigger="" name="fueltype">
+                            <option value="">By fueltype</option>
+                            <option value="petrol" {% if request.GET.fueltype == 'petrol' %}selected{% endif %}>Petrol</option>
+                            <option value="diesel" {% if request.GET.fueltype == 'diesel' %}selected{% endif %}>Diesel</option>
+                            <option value="electric" {% if request.GET.fueltype == 'electric' %}selected{% endif %}>Electric</option>
+                            <option value="cng" {% if request.GET.fueltype == 'cng' %}selected{% endif %}>CNG</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="input-field">
+                        <div class="input-select">
+                          <select data-trigger="" name="price">
+                            <option value="">By price</option>
+                            <option value="100000-200000" {% if request.GET.price == '100000-200000' %}selected{% endif %}>100,000-200,000</option>
+                            <option value="200000-300000" {% if request.GET.price == '200000-300000' %}selected{% endif %}>200,000-300,000</option>
+                            <option value="300000-400000" {% if request.GET.price == '300000-400000' %}selected{% endif %}>300,000-400,000</option>
+                            <option value="400000-500000" {% if request.GET.price == '400000-500000' %}selected{% endif %}>400,000-500,000</option>
+                            <option value="500000-600000" {% if request.GET.price == '500000-600000' %}selected{% endif %}>500,000-600,000</option>
+                            <option value="600000-700000" {% if request.GET.price == '600000-700000' %}selected{% endif %}>600,000-700,000</option>
+                            <option value="800000-900000" {% if request.GET.price == '800000-900000' %}selected{% endif %}>800,000-900,000</option>
+                            <option value="1000000-1100000" {% if request.GET.price == '1000000-1100000' %}selected{% endif %}>1,000,000-1,100,000</option>
+                            <option value="1100000-1200000" {% if request.GET.price == '1100000-1200000' %}selected{% endif %}>1,100,000-1,200,000</option>
+                            <option value="1200000-1300000" {% if request.GET.price == '1200000-1300000' %}selected{% endif %}>1,200,000-1,300,000</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="input-field">
+                        <div class="input-select">
+{#                          <select data-trigger="" name="type">#}
+{#                            <option value="">Type</option>#}
+{#                            <option value="subject_b" {% if request.GET.type == 'subject_b' %}selected{% endif %}>Subject B</option>#}
+{#                            <option value="subject_c" {% if request.GET.type == 'subject_c' %}selected{% endif %}>Subject C</option>#}
+{#                          </select>#}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row third">
+                      <div class="input-field">
+                        <div class="result-count"></div>
+                        <div class="group-btn">
+<a href="user" class="btn-delete" style="background-color: #4260ff; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px;">RESET</a>
+                          <button class="btn-search" style="background-color: #ff2200; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px;">SEARCH</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+{#          </section>#}
+        </div>
+
+        <!-- Products Section -->
+        <div class="row product-list">
+          {% for i in product %}
+                    <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                        <div class="services-item bg-light">
+                            <div class="p-4 text-center services-content">
+                                <div class="services-content-icon">
+{#                                    <i class=" fa-file-code fa-7x mb-4 text-primary"></i>#}
+                                    <img src="{{ i.image.url }}" height="200" width="230">
+                                    <h4 class="mb-3">{{ i.name }}</h4>
+                                    <p class="mb-4">{{ i.details }}</p>
+                                    <b><p class="mb-4">{{ i.history }},{{ i.service }}</p></b>
+                                    <a href="product_view_more/{{ i.id }}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">View More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<script src="../../static/search/js/extention/choices.js"></script>
+<script>
+  const customSelects = document.querySelectorAll("select");
+  const deleteBtn = document.getElementById('delete');
+  const choices = new Choices('select', {
+    searchEnabled: false,
+    itemSelectText: '',
+    removeItemButton: true,
+  });
+  for (let i = 0; i < customSelects.length; i++) {
+    customSelects[i].addEventListener('addItem', function(event) {
+      let parent = this.parentNode.parentNode;
+      if (event.detail.value) {
+        parent.classList.add('valid');
+        parent.classList.remove('invalid');
+      } else {
+        parent.classList.add('invalid');
+        parent.classList.remove('valid');
+      }
+    }, false);
+  }
+  deleteBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const deleteAll = document.querySelectorAll('.choices__button');
+    for (let i = 0; i < deleteAll.length; i++) {
+      deleteAll[i].click();
+    }
+  });
+</script>
+</body>
+{% endblock %}

@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-image: url('/static/pub/img/carousel-1.jpg'); /* Change this to your image URL */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white */
+            backdrop-filter: blur(10px); /* Optional: Add a blur effect */
+        }
+        .heading-section {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+    <title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/log1/css/style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">TRUE CAR</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">HOME</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ABOUTt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">CONTACT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="ftco-section" style="margin-top: 80px;"> <!-- Adjust margin for navbar -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+                <h2 class="heading-section">TRUE CAR</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="login-wrap p-0">
+                    <h3 class="mb-4 text-center">LOGIN</h3>
+                    <form action="/login" class="signin-form" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Username" name="un" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Password" name="pwd" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="form-control btn btn-primary rounded submit px-3">LOGIN</button>
+                        </div>
+                        <div class="form-group d-md-flex">
+                            <div class="w-50 text-md-right">
+                                <a href="#" style="color: #fff">Forgot Password</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../static/log1/js/jquery.min.js"></script>
+<script src="../static/log1/js/popper.js"></script>
+<script src="../static/log1/js/bootstrap.min.js"></script>
+<script src="../static/log1/js/main.js"></script>
+
+</body>
+</html>

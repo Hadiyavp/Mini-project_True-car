@@ -1,0 +1,178 @@
+{% load static %}
+<html lang="en">
+  <head>
+  	<title>Login </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="../static/login-form-20/css/style.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+
+    .navbar {
+      box-shadow: 0 4px 2px -2px rgba(35, 128, 20, 0.65); /* Optional shadow effect */
+    }
+.login-wrap {
+    background: rgba(0, 0, 0, 0.8); /* Darker, more opaque background */
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 4px 30px rgba(26, 201, 73, 0.5);
+}
+
+h3 {
+    color: #ffffff;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #fff;
+    border-radius: 5px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.forgot-password {
+    color: #fff;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.forgot-password:hover {
+    color: #007bff;
+}
+
+.checkbox-wrap {
+    color: white;
+}
+
+  </style>
+
+       <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="../static/pub/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="../static/pub/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="../static/pub/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="../static/pub/css/style.css" rel="stylesheet">
+
+
+
+
+	</head>
+	<body class="img js-fullheight" style="background-image: url(/static/pub/img/carousel-1.jpg);">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top" style="height: 70px;">
+    <div class="container">
+       <a href="" class="navbar-brand">
+                        <h1 class="text-white fw-bold d-block" >TRUE<span class="text-secondary">CAR</span></h1>
+                    </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+              <a class="nav-link" href="/user"style="color: white"><b>HOME</b></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="user_view_profile"style="color: white;"><b>PROFILE</b></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/"style="color: white"><b>LOGOUT</b></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+{% block body %}
+
+
+
+
+{% endblock %}
+
+
+<!-- jQuery -->
+<script src="../static/adminhome1/plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="../static/adminhome1/plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="../static/adminhome1/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="../static/adminhome1/plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="../static/adminhome1/plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="../static/adminhome1/plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../static/adminhome1/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="../static/adminhome1/plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="../static/adminhome1/plugins/moment/moment.min.js"></script>
+<script src="../static/adminhome1/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="../static/adminhome1/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="../static/adminhome1/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="../static/adminhome1/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../static/adminhome1/dist/js/adminlte.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../static/adminhome1/dist/js/demo.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="../static/adminhome1/dist/js/pages/dashboard.js"></script>
+	<script src="/static/login-form-20/js/jquery.min.js"></script>
+  <script src="/static/login-form-20/js/popper.js"></script>
+  <script src="/static/login-form-20/js/bootstrap.min.js"></script>
+  <script src="/static/login-form-20/js/main.js"></script>
+
+	</body>
+</html>
+

@@ -1,0 +1,151 @@
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+
+{#<body>#}
+{#<form action="add_productt" method="post" enctype="multipart/form-data" name="form1" id="form1">#}
+{#  <table width="200" border="1">#}
+{#    <tr>#}
+{#      <td>Name</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Model</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield2" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Image</td>#}
+{#      <td><label>#}
+{#      <input type="file" name="file" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Type</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield4" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Details</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield5" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#      <tr>#}
+{#      <td>Price</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield6" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td colspan="2"><label>#}
+{#          <div align="center">#}
+{#            <input type="submit" name="Submit" value="ADD" />#}
+{#          </div>#}
+{#        </label></td>#}
+{#    </tr>#}
+{#  </table>#}
+{#</form>#}
+{#</body>#}
+
+
+
+{% extends 'ai_sub.html' %}
+{% block body %}
+
+    <div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeIn" style="width: 100%;">
+    <div class="card-header bg-primary text-white text-center">
+      <h5>ADD IMAGE</h5>
+    </div>
+<div class="row">
+{% for i in data %}
+    <div class="col-sm-4">
+      <div class="card-body">
+                    <img src="{{ i.image.url }}" width="200" height="200"/>
+                </div>
+    </div>
+      {% endfor %}
+</div>
+  </div>
+    </div>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeIn" style="max-width: 380px; width: 100%;">
+
+
+
+
+
+
+    <div class="card-body">
+      <form id="form1" name="form1" method="post" action="/add_productt_img" enctype="multipart/form-data">
+        {% csrf_token %}
+
+
+
+
+
+
+
+
+ <div class="mb-3">
+          <label for="details" class="form-label">IMAGE</label>
+           <input type="file"  id="file" class="form-control form-control-lg" name="file" required accept="image/*">
+
+          </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg btn-block">ADD</button><br/> <a href="/manage_product" class="btn btn-info">Finish</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Card Hover & Animation */
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Input Focus & Hover */
+  .form-control {
+    border: 2px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+  }
+
+  .form-control:hover {
+    border-color: #80bdff;
+  }
+
+  /* Button Effects */
+  .btn-success {
+    background: linear-gradient(45deg, #28a745, #218838);
+    border: none;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+    transform: scale(1.05);
+  }
+
+  /* Animation Library */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+</style>
+{% endblock %}

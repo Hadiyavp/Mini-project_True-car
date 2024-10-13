@@ -1,0 +1,65 @@
+{% extends 'ai_sub.html' %}
+{% block body %}
+                <h3 class="card-title">STAFF</h3>
+<br><br>
+<form method="POST" action="/admin_staff_search">
+                  <div class="advance-search">
+
+                    <div class="row">
+
+                       <input type="text" name="s" value="{{ s }}" placeholder="Search" class="form-control" value="{{ s }}"/>
+                   <br/>
+
+                    </div>
+
+                    <div class="row third">
+                      <div class="input-field">
+                        <div class="result-count"></div>
+                        <div class="group-btn">
+<br/>
+
+                       <input type="submit" value="Search" class="btn btn-danger">
+{#                          <button class="btn-search" style="background-color: #ff2200; color: white; text-decoration: none; padding: 10px 15px; border-radius: 5px;">SEARCH</button>#}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+</form>
+<div class="row">
+    <div class="col-md-12">
+        <!-- USERS LIST -->
+        <div class="card">
+            <div class="card-header">
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <div class="row">
+                    {% for i in values %}
+                    <div class="col-md-3">  <!-- Adjust the number as needed -->
+                        <div class="user-card text-center mb-4">
+                            <img src="{{i.image.url}}" width="100" height="100" class="img-fluid rounded-circle mb-2">
+                            <h5><i class="fas fa-user"></i> {{ i.name }}</h5>
+                            <p><i class="fas fa-map-marker-alt"></i> {{ i.place }} {{ i.post }} {{ i.pin }}</p>
+                            <p><i class="fas fa-phone"></i> {{ i.phone }}</p>
+                            <p>
+                                <a href="/edit_staff/{{ i.id }}" class="btn btn-info btn-sm">EDIT</a>
+                                {% if i.login_ID.type == 'staff' %}
+                                <a href="/delete/{{ i.id }}" class="btn btn-danger btn-sm">BLOCK</a>
+                                {% else %}
+                                <a href="/un_delete/{{ i.id }}" class="btn btn-primary btn-sm">UNBLOCK</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/add_staff" class="btn btn-primary">ADD NEW</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'ai_sub.html' %}
+{% block body %}
+<style>
+
+.users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* or center, as needed */
+}
+
+.users-list .user-card {
+    flex: 0 0 30%; /* Adjust width of each card */
+    margin: 10px; /* Space between cards */
+}
+
+.user-card .card {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.user-card .card:hover {
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.btn-group {
+    margin-top: 10px; /* Space above buttons */
+}
+
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <!-- USERS LIST -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">User</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body p-0">
+                <ul class="users-list clearfix">
+                    {% for i in values %}
+                    <li class="user-card">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <img src="{{ i.image.url }}" class="img-fluid rounded-circle" width="100" height="100" alt="{{ i.name }}">
+                                <h3><i class="fas fa-user"></i> {{ i.name }}</h3>
+                                <p><i class="fas fa-map-marker-alt"></i> {{ i.place }} {{ i.post }} {{ i.pin }}</p>
+                                <p><i class="fas fa-phone"></i> {{ i.phone }}</p>
+                                <p><i class="fas fa-envelope"></i> {{ i.LOGIN.username }}</p>
+                                <div class="btn-group">
+                                    {% if i.LOGIN.type == 'user' %}
+                                    <a href="/user_block/{{ i.LOGIN.id }}" class="btn btn-danger">Block</a>
+                                    {% else %}
+                                    <a href="/user_unblock/{{ i.LOGIN.id }}" class="btn btn-info">Unblock</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

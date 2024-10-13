@@ -1,0 +1,218 @@
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+
+{#<body>#}
+{#<form action="add_productt" method="post" enctype="multipart/form-data" name="form1" id="form1">#}
+{#  <table width="200" border="1">#}
+{#    <tr>#}
+{#      <td>Name</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Model</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield2" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Image</td>#}
+{#      <td><label>#}
+{#      <input type="file" name="file" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Type</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield4" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td>Details</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield5" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#      <tr>#}
+{#      <td>Price</td>#}
+{#      <td><label>#}
+{#        <input type="text" name="textfield6" />#}
+{#      </label></td>#}
+{#    </tr>#}
+{#    <tr>#}
+{#      <td colspan="2"><label>#}
+{#          <div align="center">#}
+{#            <input type="submit" name="Submit" value="ADD" />#}
+{#          </div>#}
+{#        </label></td>#}
+{#    </tr>#}
+{#  </table>#}
+{#</form>#}
+{#</body>#}
+
+
+
+{% extends 'ai_sub.html' %}
+{% block body %}
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeIn" style="max-width: 380px; width: 100%;">
+    <div class="card-header bg-primary text-white text-center">
+      <h5>ADD PRODUCT</h5>
+    </div>
+    <div class="card-body">
+      <form id="form1" name="form1" method="post" action="/add_productt" enctype="multipart/form-data">
+        {% csrf_token %}
+      <input type="hidden" name="id" value="{{ i.id }}">
+        <div class="mb-3">
+          <label for="name" class="form-label">NAME</label>
+          <input type="text" name="name" id="name" class="form-control form-control-lg" value="{{ i.name }}" required pattern="[A-Z a-z0-9.]{3,25}" >
+        </div>
+
+        <div class="mb-3">
+          <label for="model" class="form-label">MODEL</label>
+          <input type="text" name="model" id="model"  class="form-control form-control-lg" value="{{ i.model }}"  required pattern="[0-9]{4}">
+        </div>
+
+          <div class="mb-3">
+    <label for="body_type" class="form-label">Body Type</label>
+    <select name="body_type" id="body_type" class="form-control form-control-lg" required>
+        <option value="">Select</option> <!-- Optional: Placeholder -->
+        <option value="sedan">Sedan</option>
+        <option value="coupe">Coupe</option>
+        <option value="suv">SUV</option>
+        <option value="van">Van</option>
+        <option value="wagon">Wagon</option>
+        <option value="sports_car">Sports Car</option>
+        <option value="crossover">Crossover</option>
+    </select>
+</div>
+
+
+
+        <div class="mb-3">
+          <label for="type" class="form-label"> MANUFACTURING YEAR</label>
+          <input type="text" id="type" name="year" class="form-control form-control-lg" value="{{ i.year }}"  required pattern="[0-9]{4}">
+        </div>
+
+        <div class="mb-3">
+          <label for="type" class="form-label">COMPANY</label>
+          <select id="type" name="company" class="form-control form-control-lg" value="{{ i.company }}" required>
+              <option value="">Select</option>
+              <option value="KIA" >KIA</option>
+              <option value="SUZUKI" >SUZUKI</option>
+              <option value="HYUNDAI" >HYUNDAI</option>
+              <option value="TOYOTA" >TOYOTA</option>
+              <option value="VOLKSWAGEN" >VOLKSWAGEN</option>
+              <option value="TATA" >TATA</option>
+              <option value="HONDA" >HONDA</option>
+              <option value="MAHINDRA" >MAHINDRA</option>
+              <option value="NISSAN" >NISSAN</option>
+          </select>
+        </div>
+
+               <div class="mb-3">
+          <label for="type" class="form-label">PRICE</label>
+          <input type="number"  id="type" class="form-control form-control-lg" name="price" value="{{ i.price }}" required pattern="[A-Z a-z.]{3,25}" >
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">HISTORY</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="his" value="{{ i.history }}" required>
+        </div>
+             <div class="mb-3">
+          <label for="type" class="form-label">SERVICE</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="ser" value="{{ i.service }}" required pattern="[A-Z a-z.]{3,25}" >
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">WARRANTY</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="warranty" value="{{ i.warranty }}" required pattern="^\d+\s[A-Za-z]+$"
+        title="Warranty must be in the format 'X YEAR' where X is a number and YEAR is uppercase letters.">
+
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">COLOR</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="color" value="{{ i.color }}" required pattern="[A-Z a-z.]{3,25}">
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">FUEL TYPE</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="fuel" value="{{ i.fuel }}" required pattern="[A-Z a-z.]{3,25}">
+        </div>
+
+               <div class="mb-3">
+          <label for="type" class="form-label">KILO METER</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="km" value="{{ i.km }}" required >
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">MANUAL/AUTOMATIC</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="manul" value="{{ i.manul }}" required pattern="[A-Z a-z.]{3,25}">
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">OWNER STATUS</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="owner" value="{{ i.owner }}" required pattern="[A-Z a-z.]{3,25}">
+        </div>
+               <div class="mb-3">
+          <label for="type" class="form-label">BATTERY</label>
+          <input type="text"  id="type" class="form-control form-control-lg" name="Battery" value="{{ i.battary }}" required pattern="^\d+(\.\d+)?%$" >
+        </div>
+        <div class="mb-3">
+          <label for="details" class="form-label">DESCRIPTION</label>
+          <textarea name="des" id="details" class="form-control form-control-lg" rows="2" required pattern="[A-Z a-z.]{3,100}">{{ i.details }}</textarea>
+        </div>
+ <div class="mb-3">
+          <label for="details" class="form-label">IMAGE</label>
+           <input type="file"  id="file" class="form-control form-control-lg" name="file" >
+
+          </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg btn-block">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Card Hover & Animation */
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Input Focus & Hover */
+  .form-control {
+    border: 2px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+  }
+
+  .form-control:hover {
+    border-color: #80bdff;
+  }
+
+  /* Button Effects */
+  .btn-success {
+    background: linear-gradient(45deg, #28a745, #218838);
+    border: none;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+    transform: scale(1.05);
+  }
+
+  /* Animation Library */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+</style>
+{% endblock %}

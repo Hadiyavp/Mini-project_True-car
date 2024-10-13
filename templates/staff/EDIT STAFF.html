@@ -1,0 +1,98 @@
+{% extends 'staff/staff_sub.html' %}
+{% block body %}
+
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeIn" style="max-width: 380px; width: 100%;">
+    <div class="card-header bg-primary text-white text-center">
+      <h5>PROFILE</h5>
+    </div>
+    <div class="card-body">
+<form id="form1" name="form1" method="post" action="{% url 'edit_staff_profile1' %}">
+
+
+
+
+
+
+
+       <div class="mb-3">
+          <div align="center">
+              <img src="{{ i.image.url }}" width="200" height="200" class="round-image">
+          </div>
+        </div>
+
+       <div class="mb-3">
+         <div align="center">  <label for="name" class="form-label">Name: {{ i.name }}</label>
+           </div>
+       </div>
+
+       <div class="mb-3">
+        <div align="center">   <label for="model" class="form-label">Place: {{ i.place }}</label>
+        </div>
+        </div>
+
+         <div class="mb-3">
+             <div align="center"> <label for="type" class="form-label">Post:{{ i.post }}</label></div>
+          </div>
+
+        <div class="mb-3">
+            <div align="center"> <label for="details" class="form-label">Pin:{{ i.pin }}</label></div>
+          </div>
+
+        <div class="mb-3">
+            <div align="center"> <label for="price" class="form-label">Phone:{{ i.phone }}</label></div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-success btn-lg btn-block">UPDATE</button>
+        </div>
+</form>
+
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Card Hover & Animation */
+  .card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.4s, box-shadow 0.4s;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Input Focus & Hover */
+  .form-control {
+    border: 2px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
+  }
+
+  .form-control:hover {
+    border-color: #80bdff;
+  }
+
+  /* Button Effects */
+  .btn-success {
+    background: linear-gradient(45deg,#228aff, #228aff);
+    border: none;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .btn-success:hover {
+    background: linear-gradient(45deg, #218838, #28a745);
+    transform: scale(1.05);
+  }
+
+  /* Animation Library */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+</style>
+{% endblock %}

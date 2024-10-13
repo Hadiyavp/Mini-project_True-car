@@ -1,0 +1,101 @@
+{% extends 'User/base.html' %}
+{% block body %}
+<title>Edit Profile</title>
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Source Sans Pro', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .edit-profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px; /* Prevent content from touching edges */
+    }
+
+    .edit-profile-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px; /* Rounded corners */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+        padding: 40px; /* Increased padding */
+        width: 400px; /* Fixed width */
+        text-align: center;
+    }
+
+    .edit-profile-header {
+        margin-bottom: 30px;
+        font-size: 1.5em; /* Larger font size for header */
+        color: #333; /* Darker text for readability */
+    }
+
+    .edit-profile-form {
+        display: flex;
+        flex-direction: column; /* Stack form elements */
+    }
+
+    .edit-profile-form input {
+        margin-bottom: 15px; /* Space between fields */
+        padding: 10px; /* Padding inside input */
+        border: 1px solid #ddd; /* Soft border */
+        border-radius: 5px; /* Slightly rounded corners */
+        font-size: 16px; /* Font size */
+    }
+
+    .edit-profile-form input[type="file"] {
+        border: none; /* Remove border for file input */
+    }
+
+    .edit-profile-actions {
+        margin-top: 20px; /* Space above buttons */
+    }
+
+    .edit-profile-actions .btn {
+        background-color: #4260ff; /* Primary button color */
+        color: white;
+        text-decoration: none;
+        padding: 12px 20px; /* Button padding */
+        border-radius: 8px; /* Rounded corners for buttons */
+        margin: 5px;
+        transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+    }
+
+    .edit-profile-actions .btn:hover {
+        background-color: #0056b3; /* Darker on hover */
+        transform: scale(1.05); /* Scale effect on hover */
+    }
+
+    .edit-profile-actions .btn-danger {
+        background-color: #ff2200; /* Danger button color */
+    }
+
+    .edit-profile-actions .btn-danger:hover {
+        background-color: #d11a00; /* Darker danger color on hover */
+    }
+</style>
+
+<div class="edit-profile-container">
+    <div class="edit-profile-card">
+        <div class="edit-profile-header">
+            <h1>EDIT PROFILE</h1>
+        </div>
+        <form class="edit-profile-form" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name" value="{{ profile.name }}" pattern="[a-zA-Z .]+" title="Enter letters only" >
+            <input type="text" name="place" placeholder="Place" value="{{ profile.place }}" >
+            <input type="number" name="pin" placeholder="Pin Code" value="{{ profile.pin }}" pattern="[0-9]{6}">
+            <input type="text" name="post" placeholder="Post" value="{{ profile.post }}" >
+            <input type="tel" name="phone" placeholder="Phone (10 digits)" value="{{ profile.phone }}" pattern="[9876][0-9]{9}" title="please enter a valid 10 digit phone number">
+            <input type="file" name="image" accept=".jpg, .jpeg, .png">
+            <div class="edit-profile-actions">
+                <button type="submit" class="btn">SAVE CHANGES</button>
+                <a href="/user_view_profile" class="btn btn-danger">CANCEL</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

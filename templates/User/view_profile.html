@@ -1,0 +1,101 @@
+{% extends 'User/base.html' %}
+{% block body %}
+<title>User | Profile</title>
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Source Sans Pro', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .profile-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        padding: 20px; /* Add padding to prevent content from touching edges */
+    }
+
+    .profile-card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 15px; /* Increased border-radius for smoother corners */
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow for depth */
+        padding: 40px; /* Increased padding */
+        width: 400px; /* Expanded width */
+        text-align: center;
+        transition: transform 0.2s; /* Add hover effect */
+    }
+
+    .profile-card:hover {
+        transform: scale(1.05); /* Slightly scale up on hover */
+    }
+
+    .profile-header {
+        margin-bottom: 20px;
+        font-size: 1.5em; /* Larger font size for the header */
+        color: #333; /* Darker color for better readability */
+    }
+
+    .profile-image img {
+        border-radius: 50%;
+        width: 180px; /* Increased image size */
+        height: 180px; /* Increased image size */
+        object-fit: cover;
+        border: 3px solid #4260ff; /* Add border around image */
+    }
+
+    .profile-details {
+        margin: 20px 0; /* Margin above and below details */
+        color: #666; /* Softer color for text */
+    }
+
+    .profile-details strong {
+        color: #333; /* Darker color for labels */
+    }
+
+    .profile-actions .btn {
+        background-color: #4260ff;
+        color: white;
+        text-decoration: none;
+        padding: 12px 20px; /* Increased padding */
+        border-radius: 8px; /* More rounded corners */
+        margin: 5px;
+        transition: background-color 0.3s, transform 0.2s; /* Add transform for hover */
+    }
+
+    .profile-actions .btn-danger {
+        background-color: #ff2200;
+    }
+
+    .profile-actions .btn:hover {
+        background-color: #0056b3;
+        transform: scale(1.05); /* Scale up on hover */
+    }
+
+    .profile-actions .btn-danger:hover {
+        background-color: #d11a00;
+        transform: scale(1.05); /* Scale up on hover */
+    }
+</style>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h1>{{ user.name }}</h1>
+        </div>
+        <div class="profile-image">
+            <img src="{{ user.image.url }}" alt="{{ user.name }}" />
+        </div>
+        <div class="profile-details">
+            <p><strong>LOCATION:</strong> {{ user.place }}, {{ user.pin }}</p>
+            <p><strong>POST:</strong> {{ user.post }}</p>
+            <p><strong>PHONE:</strong> {{ user.phone }}</p>
+        </div>
+        <div class="profile-actions">
+            <a href="/edit_profile" class="btn">EDIT</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
