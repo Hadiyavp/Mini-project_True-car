@@ -1,10 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+{% extends 'ai_sub.html' %}
+{% block body %}
+    <head>
+    <style>
+      .advance-search {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.search-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.form-control {
+    margin-right: 10px; /* Space between input and button */
+    width: 300px; /* Adjust as needed */
+    min-width: 200px; /* Optional: ensure a minimum width */
+}
+
+.btn {
+    margin-left: 10px; /* Space between buttons */
+}
+
+    </style>
+
+   <style>
+        /* Custom styling for the table header */
+        .table thead th {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+        }
+        .table tbody td {
+            text-align: center;
+        }
+    </style>
+    </head>
+
 <body>
-$END$
+
+
+<br><br><form method="POST" action="">
+    <div class="advance-search">
+        <div class="row">
+
+        </div>
+        <div class="row third">
+            <div class="input-field">
+                <div class="result-count"></div>
+                <div class="group-btn">
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form id="form1" name="form1" method="post" action="">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- PRODUCTS LIST -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Complaint</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Si. No</th>
+                                    <th>User name</th>
+                                    <th>Complaint</th>
+                                    <th>Date</th>
+                                    <th>Reply</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in details %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                <td>{{ i.USER.name }}</td>
+                                    <td>
+                                       {{ i.comaplaint }}
+                                    </td>
+                                    <td>{{ i.date}}</td>
+
+                                    <td> {%  if i.reply == 'pending' %}
+
+                                        <a href="#" class="option2" data-toggle="modal" data-target="#feedbackModal"  data-book="{{ i.id }}" id="{{ i.id }}">Reply</a>
+
+                    {% else %}{{ i.reply}}{% endif %}</td>
+
+                                </tr>
+
+
+                                      <div class="modal fade" id="replyModal{{ i.id }}" tabindex="-1" aria-labelledby="replyModalLabel{{ complaint.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="replyModalLabel{{ i.id }}">Send Reply to Complaint </h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/send_reply_post" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" value="{{  complaint.id }}" name="cid" id="cid">
+                                    <label for="reply">Reply</label>
+                                    <textarea name="reply" id="reply" class="form-control" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">Send Reply</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div>
+                        {% if values.has_previous %}
+                            <a href="?page=1" class="btn btn-light">First</a>
+                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if values.has_next %}
+                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>
+                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!--/.card -->
+        </div>
+    </div>
+</div>
+
+</form>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Feedback Modal -->
+<div id="feedbackModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/send_reply" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Send Reply</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="feedback">Reply</label>
+                        <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
+                    </div>
+                    <input type="hidden" name="book_id" id="bookIdInput" >
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+
+<!-- Bootstrap and jQuery JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $('#feedbackModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var bookId = button.data('book') // Extract book id from data-* attributes
+        console.log(bookId+"==================")
+        var modal = $(this)
+        modal.find('#bookIdInput').val(bookId)
+    });
+
+{#    $('#ratingModal').on('show.bs.modal', function (event) {#}
+{#        var button = $(event.relatedTarget) // Button that triggered the modal#}
+{#        var bookId = button.data('book') // Extract book id from data-* attributes#}
+{#        var modal = $(this)#}
+{#        modal.find('#ratingBookIdInput').val(bookId)#}
+{#    });#}
+</script>
+
+
 </body>
-</html>
+{% endblock %}

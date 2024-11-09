@@ -1,73 +1,93 @@
 {% extends 'ai_sub.html' %}
 {% block body %}
 <style>
-
-.users-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between; /* or center, as needed */
+.table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-.users-list .user-card {
-    flex: 0 0 30%; /* Adjust width of each card */
-    margin: 10px; /* Space between cards */
-}
-
-.user-card .card {
+.table th, .table td {
     border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: center;
+}
+
+.table th {
+    background-color: #f8f9fa;
+}
+
+.pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    text-decoration: none;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
 }
 
-.user-card .card:hover {
-    transform: scale(1.05); /* Slight scale effect on hover */
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
 }
-
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-
-.btn-group {
-    margin-top: 10px; /* Space above buttons */
-}
-
 </style>
 <div class="row">
     <div class="col-md-12">
         <!-- USERS LIST -->
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">User</h3>
+                <h3 class="card-title">USER</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
-                <ul class="users-list clearfix">
-                    {% for i in values %}
-                    <li class="user-card">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <img src="{{ i.image.url }}" class="img-fluid rounded-circle" width="100" height="100" alt="{{ i.name }}">
-                                <h3><i class="fas fa-user"></i> {{ i.name }}</h3>
-                                <p><i class="fas fa-map-marker-alt"></i> {{ i.place }} {{ i.post }} {{ i.pin }}</p>
-                                <p><i class="fas fa-phone"></i> {{ i.phone }}</p>
-                                <p><i class="fas fa-envelope"></i> {{ i.LOGIN.username }}</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in values %}
+                        <tr>
+                            <td><img src="{{ i.image.url }}" class="img-fluid rounded-circle" width="50" height="50" alt="{{ i.name }}"></td>
+                            <td>{{ i.name }}</td>
+                            <td>{{ i.place }} {{ i.post }} {{ i.pin }}</td>
+                            <td>{{ i.phone }}</td>
+                            <td>{{ i.LOGIN.username }}</td>
+                            <td>
                                 <div class="btn-group">
                                     {% if i.LOGIN.type == 'user' %}
-                                    <a href="/user_block/{{ i.LOGIN.id }}" class="btn btn-danger">Block</a>
+                                    <a href="/user_block/{{ i.LOGIN.id }}" class="btn btn-danger btn-sm">BLOCK</a>
                                     {% else %}
-                                    <a href="/user_unblock/{{ i.LOGIN.id }}" class="btn btn-info">Unblock</a>
+                                    <a href="/user_unblock/{{ i.LOGIN.id }}" class="btn btn-info btn-sm">UNBLOCK</a>
                                     {% endif %}
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="pagination">
+                    {% if previous_page %}
+                    <a href="?page={{ previous_page }}">Previous</a>
+                    {% endif %}
+                    <span>Page {{ current_page }} of {{ total_pages }}</span>
+                    {% if next_page %}
+                    <a href="?page={{ next_page }}">Next</a>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>

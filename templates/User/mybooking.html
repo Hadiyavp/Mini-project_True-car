@@ -1,10 +1,380 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'User/base.html' %}
+
+{% block body %}
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Drive Bookings</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white; /* Set the table background to white */
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        td {
+            background-color: white; /* Ensure each table cell has a white background */
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+  <style>
+        .card-container {
+            background: white;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+{#            justify-content: space-around; /* Centers the cards within the row */#}
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            margin: 10px; /* Adds consistent margin */
+            box-sizing: border-box;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            object-fit: cover; /* Ensures the image covers the container proportionally */
+            height: 200px;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .card-description {
+            margin: 10px 0 0;
+            color: #555;
+        }
+
+        .row {
+            padding: 20px;
+        }
+    </style>
+
+
+ <style>
+
+        .book-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .book-card {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            width: 30%; /* Ensures 3 cards in a row */
+            box-sizing: border-box;
+        }
+        .book-card h3 {
+            margin-top: 0;
+        }
+        .book-card p {
+            margin: 10px 0;
+        }
+        .book-card .date {
+            font-size: 0.9em;
+            color: #555;
+        }
+        .book-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .book-card a {
+            text-decoration: none;
+            color: white;
+            background-color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        .pagination span.current {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            font-size: 2em;
+            padding: 0 0.1em;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+
+        .star-rating input[type="radio"]:checked ~ label {
+            color: #ffc107;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffc107;
+        }
+        .custom-request-btn {
+        background-color: #ff5733; /* Change this to your desired color */
+        color: white; /* Change text color if needed */
+        padding: 10px 15px;
+        border-radius: 5px;
+        text-decoration: none; /* Remove underline */
+        display: inline-block;
+    }
+
+    </style>
+
+<style>
+        /* Custom styles for form-control textarea */
+        textarea.form-controll {
+            color: black !important; /* Ensure text color is black */
+            background-color: #f8f9fa; /* Light background color */
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px; /* Padding inside the textarea */
+            font-size: 16px; /* Font size */
+            height: 120px; /* Height of the textarea */
+            width: 100%; /* Make textarea take full width */
+        }
+
+        /* Add a border color change when textarea is focused */
+        textarea.form-controll:focus {
+            border-color: #4260ff; /* Blue border on focus */
+            box-shadow: 0 0 5px rgba(66, 96, 255, 0.5); /* Light blue shadow */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Optional: Set text alignment if needed */
+        textarea.form-controll {
+            text-align: left;
+        }
+    </style>
+
 </head>
+
 <body>
-$END$
+<br/>
+<br/>
+<br/>
+ <div class="edit-profile-container"  style="background: white;">
+        <div class="edit-profile-card">
+            <div class="edit-profile-header" style="background: white;">
+{#                <h1> BOOKINGS</h1>#}
+            </div>
+
+            <div class="row card-container">
+
+{#        <table>#}
+{#            <thead>#}
+{#                <tr>#}
+{#                    <th>Product Image</th>#}
+{#                    <th>Product Name</th>#}
+{#                    <th>Booking Date</th>#}
+{#                    <th>Booking Time</th>#}
+{#                    <th>Status</th>#}
+{#                    <th>Actions</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+                {% for i in val %}
+
+                     <div class="card">
+                    <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image">
+                    <div class="card-content">
+                        <h2 class="card-title">{{ i.PRODUCT.name }}({{ i.PRODUCT.model }} - {{ i.PRODUCT.color }})</h2>
+                    <input type="hidden" id="p{{ i.PRODUCT.id }}" value="{{ i.PRODUCT.name }}({{ i.PRODUCT.model }} - {{ i.PRODUCT.color }})">
+                    <input type="hidden" id="p{{ i.id }}" value="{{ i.PRODUCT.name }}({{ i.PRODUCT.model }} - {{ i.PRODUCT.color }})">
+                        <p class="card-description">{{ i.date }}</p>
+                        <p class="card-description">{{ i.time }}</p>
+                        <p class="card-description">{{ i.status }}</p>
+                        <p class="card-description">
+
+                       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal" data-bookid="{{ i.PRODUCT.id }}">
+            Add Feedback
+        </button>
+                        {% if i.status == 'booked' %}
+                            <br/>
+                            <br/>  <button type="button" class="btn btn-infoy" data-toggle="modal" data-target="#ReasonModal" data-bookid="{{ i.id }}">
+            Return
+        </button>
+{#                            <a href="/return_book/{{ i.id }}" class="btn">Return</a>#}
+                        {% endif %}
+
+                        </p>
+                    </div>
+                </div>
+{#                <tr>#}
+{#                    <td><img src="{{ i.PRODUCT.image.url }}" alt="Product Image" height="100"></td>#}
+{#                    <td>{{ i.PRODUCT.name }}</td>#}
+{#                    <td>{{ i.date }}</td>#}
+{#                    <td>{{ i.time }}</td>#}
+{#                    <td>{{ i.status }}</td>#}
+{#                    <td>#}
+{#                        <a href="/user_feedbacktemp/{{ i.PRODUCT.id }}" class="btn">Send Feedback</a>#}
+{#                        {% if i.status == 'booked' %}#}
+{#                            <a href="/return_book/{{ i.id }}" class="btn">Return</a>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                </tr>#}
+                {% endfor %}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+{#</div>#}
+{#</body>#}
+            </div>
+        </div>
+ </div>
+
+
+<!-- Bootstrap Modal for Feedback -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/user_feedbackPost" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel">Add Feedback</h5>
+          <h4 class="modal-title" id="pd"></h4>
+{#          <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+           <a href="/mybooking"><span aria-hidden="true">&times;</span></a>
+{#          </button>#}
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="book_id" id="book_id">
+          <div class="form-group">
+            <label for="review">Your Feedback </label>
+            <textarea class="form-controll" id="review" name="fb" rows="3" required></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <a href="/mybooking"  class="btn btn-secondary">Close</a>
+          <button type="submit" class="btn btn-primary">Submit Feedback</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Modal for Feedback -->
+<div class="modal fade" id="ReasonModal" tabindex="-1" role="dialog" aria-labelledby="ReasonModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form action="/reason_post" method="POST">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ReasonModalLabel">Add Reason</h5>
+          <h4 class="modal-title" id="rpd"></h4>
+{#          <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+           <a href="/mybooking"><span aria-hidden="true">&times;</span></a>
+{#          </button>#}
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="book_id" id="rbook_id">
+          <div class="form-group">
+            <label for="review">Reason </label>
+            <textarea class="form-controll" id="review" name="fb" rows="3" required></textarea>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <a href="/mybooking"  class="btn btn-secondary">Close</a>
+          <button type="submit" class="btn btn-primary">Submit Reason</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Include Bootstrap and jQuery JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Populate book ID into modal
+    $('#feedbackModal').on('show.bs.modal', function (event) {
+        console.log("*******************8888");
+        var button = $(event.relatedTarget);
+        var bookId = button.data('bookid');
+        document.getElementById("pd").innerHTML=document.getElementById('p'+bookId).value;
+        var modal = $(this);
+        modal.find('.modal-body #book_id').val(bookId);
+    });
+    // Populate book ID into modal
+    $('#ReasonModal').on('show.bs.modal', function (event) {
+        console.log("=========================");
+        var button = $(event.relatedTarget);
+
+        var bookId = button.data('bookid');
+        document.getElementById("rpd").innerHTML=document.getElementById('p'+bookId).value;
+        var modal = $(this);
+        modal.find('.modal-body #rbook_id').val(bookId);
+    });
+</script>
 </body>
-</html>
+{% endblock %}

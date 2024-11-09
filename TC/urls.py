@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin',views.admin,name='admin'),
     path('staff', views.staff, name='staff'),
     path('user', views.user, name='user'),
+    path('admin_view_car_booking1', views.admin_view_car_booking1, name='admin_view_car_booking1'),
     path('login',views.login, name='login'),
     path('add_staff', views.add_staff, name='add_staff'),
     path('add_stafff',views.add_stafff,name='add_stafff'),
@@ -64,6 +65,42 @@ urlpatterns = [
     path('staff_view_product_search',views.staff_view_product_search, name='staff_view_product_search'),
     path('admin_view_product_search',views.admin_view_product_search, name='admin_view_product_search'),
     path('admin_staff_search',views.admin_staff_search, name='admin_staff_search'),
+    path('view_more_booking',views.view_more_booking, name='view_more_booking'),
+    path('booknow_post',views.booknow_post, name='booknow_post'),
+    path('mybooking',views.mybooking, name='mybooking'),
+    path('on_payment_success',views.on_payment_success, name='on_payment_success'),
+    path('user_pay_proceed/<id>',views.user_pay_proceed, name='user_pay_proceed'),
+    path('myTestDrive',views.myTestDrive, name='myTestDrive'),
+    path('user_feedbacktemp/<int:id>',views.user_feedbacktemp, name='user_feedbacktemp'),
+    path('user_feedbackPost',views.user_feedbackPost, name='user_feedbackPost'),
+
+
+
+    path('admin_view_booking',views.admin_view_booking, name='admin_view_booking'),
+    path('admin_view_car_booking',views.admin_view_car_booking, name='admin_view_car_booking'),
+    path('staff_view_car_booking',views.staff_view_car_booking, name='staff_view_car_booking'),
+    path('staff_view_test_booking',views.staff_view_test_booking, name='staff_view_test_booking'),
+    path('adminFeedbackView',views.adminFeedbackView, name='adminFeedbackView'),
+    path('user_complaintTemp',views.user_complaintTemp, name='user_complaintTemp'),
+    path('user_PostComplaint',views.user_PostComplaint, name='user_PostComplaint'),
+    path('user_complaintView',views.user_complaintView, name='user_complaintView'),
+    path('adminViewComplaints',views.adminViewComplaints, name='adminViewComplaints'),
+    path('send_reply',views.send_reply, name='send_reply'),
+    path('return_book/<id>',views.return_book, name='return_book'),
+    path('accept_return/<id>',views.accept_return, name='accept_return'),
+    path('reject_return',views.reject_return, name='reject_return'),
+    path('reason_post',views.reason_post, name='reason_post'),
+    path('verification/<id>',views.verification, name='verification'),
+
+
+    path('admin_view_bt',views.admin_view_bt, name='admin_view_bt'),
+    path('delete_bt',views.delete_bt, name=' delete_bt'),
+    path('admin_add_bt',views.admin_add_bt, name='admin_add_bt'),
+    path('admin_add_cat',views.admin_add_cat, name='admin_add_cat'),
+    path('admin_view_cat',views.admin_view_cat, name='admin_view_cat'),
+    path('delete_cat/<id>',views.delete_cat, name='delete_cat'),
+    path('check',views.check, name='check'),
+
 
 ]
 

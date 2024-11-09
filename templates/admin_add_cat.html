@@ -1,3 +1,6 @@
+
+{% extends 'ai_sub.html' %}
+{% block body %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,19 +21,19 @@
                         <h4 class="card-title text-center">Add New Category</h4>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form method="post" action="">{% csrf_token %}
                             <div class="form-group">
                                 <label for="cat">Category Name</label>
                                 <input type="text" class="form-control" id="cat" name="cat" required placeholder="Enter category name">
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-success">Save Category</button>
+                                <button type="submit" class="btn btn-success" name="submit">Save Category</button>
                             </div>
                         </form>
                     </div>
-                    <div class="card-footer text-center">
-                        <a href="#" class="btn btn-link">Back to Category List</a>
-                    </div>
+{#                    <div class="card-footer text-center">#}
+{#                        <a href="#" class="btn btn-link">Back to Category List</a>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
@@ -43,3 +46,4 @@
 </body>
 
 </html>
+{% endblock %}

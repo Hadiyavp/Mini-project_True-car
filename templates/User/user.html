@@ -65,6 +65,33 @@
       background-color: #000000;
     }
   </style>
+
+
+<style>
+        /* Custom styles for form-control textarea */
+        input.form-controll {
+            color: black !important; /* Ensure text color is black */
+            background-color: #f8f9fa; /* Light background color */
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px; /* Padding inside the textarea */
+            font-size: 16px; /* Font size */
+
+            width: 100%; /* Make textarea take full width */
+        }
+
+        /* Add a border color change when textarea is focused */
+        input.form-controll:focus {
+            border-color: #4260ff; /* Blue border on focus */
+            box-shadow: 0 0 5px rgba(66, 96, 255, 0.5); /* Light blue shadow */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Optional: Set text alignment if needed */
+        input.form-controll {
+            text-align: left;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -74,7 +101,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 style="margin-top:30px;" class="m-0">User Dashboard</h1>
+            <h1 style="margin-top:30px;" class="m-0">SEARCH HERE</h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -88,12 +115,18 @@
                 <div class="inner-form">
                   <div class="basic-search">
                     <div class="input-field">
-                      <input id="search" name="search" type="text" placeholder="Type Keywords" class="form-control" value="{{ request.GET.search }}" />
-                      <div class="icon-wrap">
+                        <table style="width: 100%;">
+                            <tr>
+                                <td><input id="search" name="search" type="text" placeholder="Type Keywords" class="form-controll" value="{{ request.GET.search }}" />
+                      </td>
+                                <td> <div class="icon-wrap">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                           <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
                         </svg>
-                      </div>
+                      </div></td>
+                            </tr>
+                        </table>
+
                     </div>
                   </div>
                   <div class="advance-search">
@@ -102,9 +135,9 @@
                       <div class="input-field">
                         <div class="input-select">
                           <select data-trigger="" name="model">
-                            <option value="">By model</option>
+                            <option value="">BY MODEL</option>
                             {% for year in years %}
-                            <option value="{{ year }}" {% if request.GET.model == year %}selected{% endif %}>{{ year }}</option>
+                            <option value="{{ year }}" {% if request.GET.model == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
                             {% endfor %}
                           </select>
                         </div>
@@ -112,7 +145,7 @@
                       <div class="input-field">
                         <div class="input-select">
                           <select data-trigger="" name="color">
-                            <option value="">color</option>
+                            <option value="">COLOR</option>
                             <option value="white" {% if request.GET.color == 'white' %}selected{% endif %}>White</option>
                             <option value="black" {% if request.GET.color == 'black' %}selected{% endif %}>Black</option>
                             <option value="yellow" {% if request.GET.color == 'yellow' %}selected{% endif %}>Yellow</option>
@@ -126,14 +159,15 @@
                       <div class="input-field">
                         <div class="input-select">
                           <select data-trigger="" name="bodytype">
-                            <option value="">By bodytype</option>
-                            <option value="sedan" {% if request.GET.bodytype == 'sedan' %}selected{% endif %}>Sedan</option>
-                            <option value="coupe" {% if request.GET.bodytype == 'coupe' %}selected{% endif %}>Coupe</option>
+                            <option value="">BY BODYTYPE</option>
+                            <option value="sedan" {% if request.GET.bodytype == 'sedan' %}selected{% endif %}>SEDAN</option>
+                            <option value="coupe" {% if request.GET.bodytype == 'coupe' %}selected{% endif %}>COUPE</option>
                             <option value="suv" {% if request.GET.bodytype == 'suv' %}selected{% endif %}>SUV</option>
-                            <option value="van" {% if request.GET.bodytype == 'van' %}selected{% endif %}>Van</option>
-                            <option value="wagon" {% if request.GET.bodytype == 'wagon' %}selected{% endif %}>Wagon</option>
-                            <option value="sports_car" {% if request.GET.bodytype == 'sports_car' %}selected{% endif %}>Sports Car</option>
-                            <option value="crossover" {% if request.GET.bodytype == 'crossover' %}selected{% endif %}>Crossover</option>
+                            <option value="van" {% if request.GET.bodytype == 'van' %}selected{% endif %}>VAN</option>
+                            <option value="wagon" {% if request.GET.bodytype == 'wagon' %}selected{% endif %}>WAGON</option>
+                            <option value="sports_car" {% if request.GET.bodytype == 'sports_car' %}selected{% endif %}>SPORTS CAR</option>
+                            <option value="crossover" {% if request.GET.bodytype == 'crossover' %}selected{% endif %}>CROSSOVER</option>
+                          <option value="crossover" {% if request.GET.bodytype == 'HATCHBACK' %}selected{% endif %}>HATCHBACK</option>
                           </select>
                         </div>
                       </div>
@@ -142,7 +176,7 @@
                       <div class="input-field">
                         <div class="input-select">
                           <select data-trigger="" name="fueltype">
-                            <option value="">By fueltype</option>
+                            <option value="">BY FUELTYPE</option>
                             <option value="petrol" {% if request.GET.fueltype == 'petrol' %}selected{% endif %}>Petrol</option>
                             <option value="diesel" {% if request.GET.fueltype == 'diesel' %}selected{% endif %}>Diesel</option>
                             <option value="electric" {% if request.GET.fueltype == 'electric' %}selected{% endif %}>Electric</option>
@@ -153,7 +187,7 @@
                       <div class="input-field">
                         <div class="input-select">
                           <select data-trigger="" name="price">
-                            <option value="">By price</option>
+                            <option value="">BY PRICE</option>
                             <option value="100000-200000" {% if request.GET.price == '100000-200000' %}selected{% endif %}>100,000-200,000</option>
                             <option value="200000-300000" {% if request.GET.price == '200000-300000' %}selected{% endif %}>200,000-300,000</option>
                             <option value="300000-400000" {% if request.GET.price == '300000-400000' %}selected{% endif %}>300,000-400,000</option>
@@ -203,8 +237,8 @@
 {#                                    <i class=" fa-file-code fa-7x mb-4 text-primary"></i>#}
                                     <img src="{{ i.image.url }}" height="200" width="230">
                                     <h4 class="mb-3">{{ i.name }}</h4>
-                                    <p class="mb-4">{{ i.details }}</p>
-                                    <b><p class="mb-4">{{ i.history }},{{ i.service }}</p></b>
+                                    <p class="mb-4">{{ i.model }}</p>
+                                    <b><p class="mb-4">{{ i.fuel }}</p></b>
                                     <a href="product_view_more/{{ i.id }}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">View More</a>
                                 </div>
                             </div>

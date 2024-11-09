@@ -75,8 +75,8 @@
 <br/>
 <br/>
   <div class="confirmation-container">
-    <h1 class="confirmation-message">Payment Confirmed!</h1>
-    <p>Your payment has been successfully processed. Thank you for your purchase!</p>
+    <h1 class="confirmation-message">Booking Confirmed!</h1>
+    <p>Your Request has been successfully processed. Thank you for your Booking!</p>
 
     <!-- Centered Car Image -->
     <img src="{{ car.image.url }}" alt="{{ car.name }}" class="car-image">
@@ -91,6 +91,10 @@
       <div class="details-column">
         <div class="details-item"><span class="highlight">Fuel Type:</span> {{ car.fuel }}</div>
         <div class="details-item"><span class="highlight">Price:</span> ₹{{ car.price }}</div>
+      </div>
+      <div class="details-column">
+        <div class="details-item"><span class="highlight">Date:</span> {{ d }}</div>
+        <div class="details-item"><span class="highlight">Time:</span> {{ t }}</div>
       </div>
     </div>
 

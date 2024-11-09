@@ -1,10 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
+{% extends 'ai_sub.html' %}
+{% block body %}
+    <head>
+    <style>
+      .advance-search {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.search-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.form-control {
+    margin-right: 10px; /* Space between input and button */
+    width: 300px; /* Adjust as needed */
+    min-width: 200px; /* Optional: ensure a minimum width */
+}
+
+.btn {
+    margin-left: 10px; /* Space between buttons */
+}
+
+    </style>
+    </head>
+
 <body>
-$END$
+
+
+<br><br><form method="POST" action="">
+    <div class="advance-search">
+        <div class="row">
+
+        </div>
+        <div class="row third">
+            <div class="input-field">
+                <div class="result-count"></div>
+                <div class="group-btn">
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<form id="form1" name="form1" method="post" action="">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- PRODUCTS LIST -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Feedback</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Si. No</th>
+                                    <th>user name</th>
+                                    <th>Productname</th>
+                                    <th>Feedback</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in details %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>
+                                       {{ i.USER.name }}
+                                    </td>
+                                    <td>{{ i.PRODUCT.name}}</td>
+                                    <td>{{ i.feedback }}</td>
+
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div>
+                        {% if values.has_previous %}
+                            <a href="?page=1" class="btn btn-light">First</a>
+                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if values.has_next %}
+                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>
+                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!--/.card -->
+        </div>
+    </div>
+</div>
+
+</form>
 </body>
-</html>
+{% endblock %}

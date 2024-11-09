@@ -1,4 +1,4 @@
-{% extends 'ai_sub.html' %}
+{% extends 'staff/staff_sub.html' %}
 {% block body %}
 
 <head>
@@ -55,7 +55,8 @@
     <div class="card">
         <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">
         <div class="card-content">
-            <h2 class="card-title">{{ i.PRODUCT.name }}</h2>
+            <h2 class="card-title">{{ i.PRODUCT.name }}</h2><br>
+            <h2 class="card-title">User :{{ i.USER.name }}</h2><br>
             <p class="card-description">{{ i.date }}</p>
             <p class="card-description">{{ i.time }}</p>
             <p class="card-description">{{ i.status }}</p>

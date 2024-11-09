@@ -86,13 +86,30 @@
             <a href="/manage_product" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                PRODUCT
+                CARS
 {#                <span class="right badge badge-danger">New</span>#}
               </p>
             </a>
           </li>
 
       <li class="nav-item">
+            <a href="/admin_view_cat " class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                CATEGORY
+{#                <span class="right badge badge-danger">New</span>#}
+              </p>
+            </a>
+          </li>
+      <li class="nav-item">
+            <a href="/admin_view_bt" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                BODY TYPE
+{#                <span class="right badge badge-danger">New</span>#}
+              </p>
+            </a>
+          </li> <li class="nav-item">
             <a href="/manage_staff" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
@@ -100,11 +117,41 @@
 {#                <span class="right badge badge-danger">New</span>#}
               </p>
             </a>
-          </li>  <li class="nav-item">
+          </li>
+
+            <li class="nav-item">
             <a href="/manage_users" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 USER
+{#                <span class="right badge badge-danger">New</span>#}
+              </p>
+            </a>
+          </li>
+
+            <li class="nav-item">
+            <a href="/admin_view_booking" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                BOOKINGS
+{#                <span class="right badge badge-danger">New</span>#}
+              </p>
+            </a>
+          </li>
+            <li class="nav-item">
+            <a href="/admin_view_car_booking" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               CAR BOOKINGS
+{#                <span class="right badge badge-danger">New</span>#}
+              </p>
+            </a>
+          </li>
+             <li class="nav-item">
+            <a href="/adminFeedbackView" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+               FEEDBACK
 {#                <span class="right badge badge-danger">New</span>#}
               </p>
             </a>
@@ -224,6 +271,20 @@
 {#              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>#}
             </div>
           </div>
+
+            <!-- small box -->
+            <div class="small-box bg-danger">
+{#              <div class="inner">#}
+{#                <h3>{{ pc }}</h3>#}
+{##}
+{#                <p>FEEDBACK</p>#}
+{#              </div>#}
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+{#              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>#}
+            </div>
+          </div>
           <!-- ./col -->
         </div>
         <!-- /.row -->
@@ -257,7 +318,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                <canvas class="chart" id="myChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 600px;"></canvas>
               </div>
               <!-- /.card-body -->
 {#              <div class="card-footer bg-transparent">#}
@@ -350,5 +411,33 @@
 <script src="../static/adminhome1/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../static/adminhome1/dist/js/pages/dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+const xValues = {{ x }};
+const yValues = {{ y }};
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      lineTension: 0,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 0, max:30}}],
+    }
+  }
+});
+</script>
+
+
 </body>
 </html>

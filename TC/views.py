@@ -6,12 +6,13 @@ from email.mime.text import MIMEText
 
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from TC.models import login_table, staff_table, product_table,user_table,product_images
+from TC.models import login_table, staff_table, product_table,user_table,product_images,testdrive_booking,product_booking
 
-
+from TC.models import *
 def index(request):
     product = product_table.objects.all()
     return render(request,"pub.html",{'product':product})
@@ -70,7 +71,13 @@ def home(request):
 def admin(request):
     ob=staff_table.objects.all()
     obp=product_table.objects.all()
-    return render(request,"ai.html",{"sc":len(ob),"pc":len(obp)})
+    x=[1,2,3,4,5,6,7,8,9,10,11,12]
+    y=[]
+
+    for i in x:
+        ob=product_booking.objects.filter(status='booked',date__month=i)
+        y.append(len(ob))
+    return render(request,"ai.html",{"sc":len(ob),"pc":len(obp),"x":x,"y":y})
 
 def staff(request):
     obp = product_table.objects.all()
@@ -131,7 +138,7 @@ def add_stafff(request):
     return redirect('/manage_staff')
 
 def manage_staff(request):
-    obj = staff_table.objects.all()
+    obj = staff_table.objects.all().order_by("-id")
     return render(request, 'MANAGE STAFF-ADMIN.html', {'values': obj})
 
 def manage_users(request):
@@ -199,7 +206,9 @@ def edit_stafff(request):
 
 
 def add_product(request):
-    return render(request,'ADD PRODUCT-ADMIN.html')
+    ob=category_table.objects.all()
+    ob1=bodytype.objects.all()
+    return render(request,'ADD PRODUCT-ADMIN.html',{"val":ob,"val1":ob1})
 
 def add_productt(request):
     name=request.POST['name']
@@ -261,7 +270,7 @@ def add_productt_img(request):
 
 
 def manage_product(request):
-    obj = product_table.objects.all()
+    obj = product_table.objects.all().order_by("-id")
     paginator = Paginator(obj, 3)  # Show 3 products per page
     page_number = request.GET.get('page', 1)  # Default to page 1
     page_obj = paginator.get_page(page_number)
@@ -422,7 +431,7 @@ def admin_view_product_search(request):
 
 def admin_staff_search(request):
     s=request.POST['s']
-    obj = staff_table.objects.filter(name__istartswith=s)
+    obj = staff_table.objects.filter(name__istartswith=s).order_by("-id")
     paginator = Paginator(obj, 3)  # Show 6 products per page
     page_number = request.GET.get('page', 1)  # Default to page 1
     page_obj = paginator.get_page(page_number)
@@ -461,7 +470,13 @@ def user(request):
     print(fueltype_filter)
     print(price_filter)
 
-    products = product_table.objects.all()
+
+    plist=[]
+    ob=product_booking.objects.exclude(status='Return')
+    for i in ob:
+        plist.append(i.PRODUCT.id)
+
+    products = product_table.objects.exclude(id__in=plist)
     years = list(range(2013, 2024))  # Creating a list of years from 2013 to 2023
 
     if query:
@@ -518,12 +533,46 @@ def edit_profile(request):
     return render(request, 'User/edit_profile.html', {'profile': profile})
 
 def product_view_more(request,id):
+    request.session['pid']=id
+
     object = product_table.objects.get(id=id)
     imglist=[{"img":object.image.url}]
     ob=product_images.objects.filter(PRODUCT__id=id)
     for i in ob:
         imglist.append({"img":i.image.url})
+
     return render(request, 'User/user_view_more.html',{'object':object,"img":imglist})
+
+
+def view_more_booking(request):
+    d=datetime.now().strftime("%Y-%m-%d")
+    return render(request,"User/userbooking.html",{"d":d})
+
+def check(request):
+    d=request.GET['date']
+    t=request.GET['time']
+    ob=testdrive_booking.objects.filter(date=d,time__hour=t.split(":")[0])
+    print(d,t)
+    print(ob)
+    if len(ob)>0:
+        return JsonResponse({"task":True})
+    else:
+        return JsonResponse({"task":False})
+
+
+def booknow_post(request):
+    d=request.POST['d']
+    t=request.POST['t']
+    ob=testdrive_booking()
+    ob.PRODUCT = product_table.objects.get(id=request.session['pid'])
+    ob.USER = user_table.objects.get(LOGIN__id=request.session['lid'])
+    ob.date=d
+    ob.time=t
+    ob.status='Booked'
+    ob.save()
+    return render(request, 'User/verification2.html', {'car': ob.PRODUCT,"d":d,"t":t})
+    return render(request,'User/verification2.html')
+
 
 
 def edit_user_profile(request):
@@ -565,6 +614,23 @@ def forgot_password(request):
 
     return render(request,"fp.html")
 
+def mybooking(request):
+    res=product_booking.objects.filter(USER__LOGIN__id=request.session['lid'])
+
+    return render(request,"User/mybooking.html",{"val":res})
+
+
+def mybooking(request):
+    res=product_booking.objects.filter(USER__LOGIN__id=request.session['lid']).order_by("-date")
+
+    return render(request,"User/mybooking.html",{"val":res})
+
+
+def myTestDrive(request):
+    res=testdrive_booking.objects.filter(USER__LOGIN__id=request.session['lid']).order_by("-date")
+
+    return render(request,"User/testDrive.html",{"val":res})
+
 def forgot_password_post(request):
     un=request.POST['un']
     try:
@@ -603,30 +669,247 @@ def forgot_password_post(request):
 
 import  razorpay
 
-def user_pay_proceed(request):
-    amt=request.session['pay_amount']
+def user_pay_proceed(request,id):
+    request.session['rid'] = id
+
+
+    request.session['pay_amount'] = "2000"
     client = razorpay.Client(auth=("rzp_test_edrzdb8Gbx5U5M", "XgwjnFvJQNG6cS7Q13aHKDJj"))
     print(client)
-    payment = client.order.create({'amount': str(amt)+"00", 'currency': "INR", 'payment_capture': '1'})
-    res=user_table.objects.get(LOGINID__id=request.session['lid'])
+    payment = client.order.create({'amount': request.session['pay_amount']+"00", 'currency': "INR", 'payment_capture': '1'})
+    res=user_table.objects.get(LOGIN__id=request.session['lid'])
 
 
-    ob=order_table.objects.get(id=request.session['rid'])
-    ob.status='paid'
-    ob.save()
-    return render(request,'User/upp.html',{'p':payment,'val':res,"lid":request.session['lid'],"id":request.session['rid']})
 
+    return render(request,'User/UserPayProceed.html',{'p':payment,'val':res,"lid":request.session['lid'],"id":request.session['rid']})
 
 def on_payment_success(request):
     request.session['rid'] = request.GET['id']
     request.session['lid'] = request.GET['lid']
-    # var = auth.authenticate(username='admin', password='admin')
-    # if var is not None:
-    #     auth.login(request, var)
-    # amt = request.session['pay_amount']
-    ob=order_table.objects.get(id=request.session['rid'])
-    ob.status='paid'
+
+    event = str(request.body)
+    print(event)
+    if 'payment_failed' in event:
+        return HttpResponse('''
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                Swal.fire({
+                                    icon: 'failed',
+                                    title: 'Payment Failed... !',
+                                    confirmButtonText: 'OK',
+                                    reverseButtons: true
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location = "/user";
+                                    }
+                                });
+                            });
+                        </script>
+                    ''')
+    else:
+        ob = product_booking()
+        ob.PRODUCT =product_table.objects.get(id=request.session['rid'])
+        ob.USER = user_table.objects.get(LOGIN__id=request.session['lid'])
+        ob.date=datetime.today()
+        ob.status='booked'
+        ob.save()
+    return HttpResponse('''
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Booking Confirmed... !',
+                            confirmButtonText: 'OK',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location = "/verification/'''+str(ob.id)+'''";
+                            }
+                        });
+                    });
+                </script>
+            ''')
+
+
+
+def verification(request,id):
+
+    # return render(request, 'MANAGE PRODUCT-ADMIN.html', {'values': page_obj})
+    ob=product_booking.objects.get(id=id)
+    return render(request,'User/verification.html',{'car':ob.PRODUCT})
+
+
+def admin_view_booking(request):
+    res=testdrive_booking.objects.all()
+    paginator = Paginator(res, 3)  # Show 3 products per page
+    page_number = request.GET.get('page', 1)  # Default to page 1
+    page_obj = paginator.get_page(page_number)
+
+    # Debugging: Print current page number and object count
+    print(f"Page number: {page_number}")  # Should show the current page number
+    print(f"Total items: {paginator.count}")  # Total number of products
+    print(f"Page object: {page_obj}")  # Debugging page object
+
+    # return render(request, 'MANAGE PRODUCT-ADMIN.html', {'values': page_obj})
+    return render(request,'admin_booking.html',{'values':page_obj})
+
+def admin_view_car_booking(request):
+    res=product_booking.objects.filter(status='booked')
+    paginator = Paginator(res, 3)  # Show 3 products per page
+    page_number = request.GET.get('page', 1)  # Default to page 1
+    page_obj = paginator.get_page(page_number)
+
+    # Debugging: Print current page number and object count
+    print(f"Page number: {page_number}")  # Should show the current page number
+    print(f"Total items: {paginator.count}")  # Total number of products
+    print(f"Page object: {page_obj}")  # Debugging page object
+
+    # return render(request, 'MANAGE PRODUCT-ADMIN.html', {'values': page_obj})
+    # return render(request, 'admin_booking.html', {'values': page_obj})
+    return render(request,'admin_booking2.html',{'values':res})
+
+def admin_view_car_booking1(request):
+    res=product_booking.objects.exclude(status='booked')
+    paginator = Paginator(res, 3)  # Show 3 products per page
+    page_number = request.GET.get('page', 1)  # Default to page 1
+    page_obj = paginator.get_page(page_number)
+
+    # Debugging: Print current page number and object count
+    print(f"Page number: {page_number}")  # Should show the current page number
+    print(f"Total items: {paginator.count}")  # Total number of products
+    print(f"Page object: {page_obj}")  # Debugging page object
+
+    # return render(request, 'MANAGE PRODUCT-ADMIN.html', {'values': page_obj})
+    # return render(request, 'admin_booking.html', {'values': page_obj})
+    return render(request,'admin_booking3.html',{'values':res})
+
+
+def staff_view_car_booking(request):
+    res=product_booking.objects.all()
+    return render(request,'staff/staff_booking2.html',{'data':res})
+
+
+def staff_view_test_booking(request):
+    res=testdrive_booking.objects.all()
+    return render(request,'staff/staff_view_testdrivr__booking.html',{'data':res})
+
+def user_feedbacktemp(request,id):
+    request.session["pid"]=id
+    return render(request,'User/user_feedback.html')
+
+def user_feedbackPost(request):
+    print(request.POST)
+    id=request.POST['book_id']
+    feedback_content=request.POST["fb"]
+    ob=feedback()
+    ob.USER=user_table.objects.get(LOGIN__id=request.session['lid'])
+    ob.PRODUCT_id= id
+    ob.feedback=feedback_content
+    ob.save()
+    return redirect('/mybooking')
+def adminFeedbackView(request):
+    ob=feedback.objects.all()
+    return render(request,'Admin_viewFeedback.html',{'details':ob})
+def user_complaintTemp(request):
+    return  render(request,'User/user_complaint.html')
+
+def user_PostComplaint(request):
+    ob=complaint()
+    ob.comaplaint=request.POST["txtcomplaint"]
+    ob.date=datetime.now().today().date()
+    ob.reply='pending'
+    ob.USER=user_table.objects.get(LOGIN__id=request.session['lid'])
+    ob.save()
+    return HttpResponse('''<script>alert("Complaint Post successfully");window.location="/user"</script>''')
+
+def user_complaintView(request):
+    id = user_table.objects.get(LOGIN__id=request.session['lid'])
+    ob=complaint.objects.filter(USER_id=id.id)
+    return render(request,'User/user_complaintView.html',{'details':ob})
+
+def adminViewComplaints(request):
+    ob=complaint.objects.all()
+    return render(request,'adminViewComplaint.html',{'details':ob})
+def return_book(request,id):
+    request.session['bid']=id
+    return render(request,'user/reson.html')
+def accept_return(request,id):
+    ob=product_booking.objects.get(id=id)
+    ob.status='Return'
+    ob.save()
+    # obp=ob.PRODUCT
+    # obp.
+    return redirect('/admin_view_car_booking1')
+def reject_return(request):
+    id=request.POST['book_id']
+    reason=request.POST['fb']
+
+
+    ob=product_booking.objects.get(id=id)
+    ob.status='Rejected - '+reason
     ob.save()
 
+    return redirect("/admin_view_car_booking1")
 
-    return HttpResponse('''<script>alert("Success! Thank you for your Contribution");window.location="/userhome"</script>''')
+
+def reason_post(request):
+    ob=product_booking.objects.get(id=request.POST['book_id'])
+    ob.status='Return Requested'
+    ob.reson=request.POST['fb']
+    ob.save()
+    return redirect("/mybooking")
+def send_reply(request):
+    r=request.POST['feedback']
+    book_id=request.POST['book_id']
+    ob=complaint.objects.get(id=book_id)
+    ob.reply=r
+    ob.save()
+    return redirect("/adminViewComplaints")
+
+
+
+def admin_add_cat(request):
+    if 'submit' in request.POST:
+        cat=request.POST['cat']
+        c=category_table()
+        c.name=cat
+        c.save()
+        return redirect('/admin_add_cat')
+    return render(request,'admin_add_cat.html')
+
+
+def admin_view_cat(request):
+    a=category_table.objects.all()
+    return render(request,'admin view cat.html',{'data':a})
+
+
+def delete_cat(request,id):
+    a=category_table.objects.get(id=id)
+    a.delete()
+    return redirect('/admin_view_cat')
+
+
+
+def admin_view_bt(request):
+    a=bodytype.objects.all()
+    return render(request,'admin viewbt.html',{'data':a})
+
+
+def delete_bt(request,id):
+    a=bodytype.objects.get(id=id)
+    a.delete()
+    return redirect('/admin_view_bt')
+
+def admin_add_bt(request):
+    if 'submit' in request.POST:
+        cat=request.POST['cat']
+        c=bodytype()
+        c.name=cat
+        c.save()
+        return redirect('/admin_view_bt')
+    return render(request,'admin_add_bt.html')
+

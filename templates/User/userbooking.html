@@ -80,72 +80,152 @@
 <head>
     <title>User</title>
     <!-- Include CSS and JS links here -->
+
+<style>
+        /* Custom styles for form-control textarea */
+        input.form-controll {
+            color: black !important; /* Ensure text color is black */
+            background-color: #f8f9fa; /* Light background color */
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px; /* Padding inside the textarea */
+            font-size: 16px; /* Font size */
+
+            width: 100%; /* Make textarea take full width */
+        }
+
+        /* Add a border color change when textarea is focused */
+        input.form-controll:focus {
+            border-color: #4260ff; /* Blue border on focus */
+            box-shadow: 0 0 5px rgba(66, 96, 255, 0.5); /* Light blue shadow */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Optional: Set text alignment if needed */
+        input.form-controll {
+            text-align: left;
+        }
+        /* Custom styles for form-control textarea */
+        select.form-controll {
+            color: black !important; /* Ensure text color is black */
+            background-color: #f8f9fa; /* Light background color */
+            border: 1px solid #ccc; /* Border color */
+            border-radius: 4px; /* Rounded corners */
+            padding: 10px; /* Padding inside the textarea */
+            font-size: 16px; /* Font size */
+
+            width: 100%; /* Make textarea take full width */
+        }
+
+        /* Add a border color change when textarea is focused */
+        select.form-controll:focus {
+            border-color: #4260ff; /* Blue border on focus */
+            box-shadow: 0 0 5px rgba(66, 96, 255, 0.5); /* Light blue shadow */
+            outline: none; /* Remove default focus outline */
+        }
+
+        /* Optional: Set text alignment if needed */
+        select.form-controll {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
 <br/>
 <br/>
-
+<form method="post" action="/booknow_post">
 <div class="container mt-5">
     <br/>
     <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.8);">
         <br/>
         <br/>
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <br/>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    {% for i in img %}
-                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                            <img src="{{ i.img }}" alt="Image" width="400" height="400" class="d-block w-100">
-                        </div>
-                    {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-        </div>
+
         <div class="card-body text-center">
-            <h5 class="card-text font-weight-bold" style="color: black;">{{ object.name }}</h5>
+
             <hr>
             <div class="details">
                 <div class="row">
-                    <div class="col-md-6 text-left">
-                        <p><strong>MODEL:</strong> {{ object.model }}</p>
-                        <p><strong>YEAR:</strong> {{ object.year }}</p>
-                        <p><strong>COMPANY:</strong> {{ object.company }}</p>
-                        <p><strong>DETAILS:</strong> {{ object.details }}</p>
-                        <p><strong>HISTORY:</strong> {{ object.history }}</p>
-                        <p><strong>SERVICE:</strong> {{ object.service }}</p>
-                        <p><strong>BODY TYPE:</strong> {{ object.body_type }}</p>
-                    </div>
-                    <div class="col-md-6 text-left">
-                        <p><strong>WARRANTY:</strong> {{ object.warranty }}</p>
-                        <p><strong>COLOR:</strong> {{ object.color }}</p>
-                        <p><strong>FUEL:</strong> {{ object.fuel }}</p>
-                        <p><strong>KM:</strong> {{ object.km }}</p>
-                        <p><strong>MANUAL:</strong> {{ object.manul }}</p>
-                        <p><strong>OWNER:</strong> {{ object.owner }}</p>
-                        <p><strong>BATTERY:</strong> {{ object.battary }}</p>
-                        <p class="font-weight-bold text-success"><strong>PRICE:</strong> ₹{{ object.price }}</p>
+
+                    <div class="col-md-5 text-left"></div>
+                    <div class="col-md-4 text-left">
+                        <div class="mt-3">
+                        <p><strong>Date:</strong> <label><input type="date" required class="form-controll" min="{{ d }}" name="d" id="d"></label></p>
+                        <p><strong>Time: &nbsp;&nbsp;&nbsp;&nbsp;</strong>  <label>
+{#                            <input type="time" required  class="form-controll" name="t" id="time">#}
+                        <select name="t" class="form-controll" name="t" id="time" required>
+
+                            <option value="">Select Time</option>
+                            <option value="8:00">8:00</option>
+                            <option value="9:00">9:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="1:00">1:00</option>
+                            <option value="2:00">2:00</option>
+                            <option value="3:00">3:00</option>
+                            <option value="4:00">4:00</option>
+                            <option value="5:00">5:00</option>
+                            <option value="6:00">6:00</option>
+                            <option value="7:00">7:00</option>
+
+                        </select>
+                        </label><label></label></p>
+
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="mt-3">
-                <a href="" class="btn btn-outline-danger">BOOK FOR TEST DRIVE</a>
+                <p id="msg"></p>
+                <input type="submit" value="Book Now" class="btn btn-primary" id="bid">
             </div>
         </div>
     </div>
 </div>
+</form>
 
-<!-- Include jQuery and Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+    $("#time").change(function(){
+
+    var uname;
+    uname = $(this).val();
+  var  date =  document.getElementById("d").value;
+
+$.ajax(
+    {
+        type:"GET",
+        url: "/check",
+        data:{
+                 time: uname,date:date
+        },
+        success: function( data )
+        {
+            console.log(data);
+            const submitButton = document.getElementById('bid');
+
+        if (data.task) {
+submitButton.disabled = true;
+                    $( '#msg' ).text("Slot not available");
+                  }
+                  else
+                  {
+                      submitButton.disabled = false;
+                  $( '#msg' ).text("");
+                  }
+
+        }
+     })
+});
+
+
+</script>
+
 </body>
 {% endblock %}

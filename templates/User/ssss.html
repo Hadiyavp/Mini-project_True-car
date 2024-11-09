@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Input (Only Full Hour Selection)</title>
+</head>
+
+<body>
+
+    <h2>Select Time (Only on the Hour, Minimum 1 Hour Ahead)</h2>
+
+    <!-- Time input field with step set to 3600 (1 hour) -->
+    <label for="timeInput">Select a time:</label>
+    <input type="time" id="timeInput" name="time" required step="3600">
+
+    <script>
+        // Function to set the minimum time as 1 hour from the current time
+        function setMinTime() {
+            const timeInput = document.getElementById('timeInput');
+            const now = new Date();
+
+            // Round up to the next hour (if current time is 3:30 PM, next available time is 4:00 PM)
+            now.setMinutes(0); // Reset to the top of the hour
+            now.setSeconds(0); // Reset seconds to 0
+            now.setMilliseconds(0); // Reset milliseconds to 0
+            now.setHours(now.getHours() + 1); // Add 1 hour to current time
+
+            // Get hours in HH:MM format (00:00 to 23:00)
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+
+            // Set the min attribute for the time input (HH:00 format)
+            timeInput.setAttribute('min', `${hours}:${minutes}`);
+        }
+
+        // Call the function to set the minimum time on page load
+        setMinTime();
+    </script>
+
+</body>
+
+</html>

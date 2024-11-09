@@ -1,73 +1,483 @@
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Card with Image</title>#}
+{#    <style>#}
+{##}
+{##}
+{#        .card {#}
+{#            background: white;#}
+{#            border-radius: 8px;#}
+{#            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);#}
+{#            overflow: hidden;#}
+{#            width: 300px;#}
+{#            margin-bottom: 10px;#}
+{##}
+{#        }#}
+{##}
+{#        .card-image {#}
+{#            width: 100%;#}
+{##}
+{#        }#}
+{##}
+{#        .card-content {#}
+{#            padding: 16px;#}
+{#        }#}
+{##}
+{#        .card-title {#}
+{#            margin: 0;#}
+{#            font-size: 1.5em;#}
+{#        }#}
+{##}
+{#        .card-description {#}
+{#            margin: 10px 0 0;#}
+{#            color: #555;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<br/>#}
+{#<br/>#}
+{#<br/>#}
+{#<div class="edit-profile-container">#}
+{#    <div class="edit-profile-card">#}
+{#        <div class="edit-profile-header">#}
+{#            <h1>CAR BOOKINGS</h1>#}
+{#        </div>#}
+{##}
+{#<div class="row">#}
+{##}
+{##}
+{#{% for i in data %}    <div class="col-sm-3">#}
+{#    <div class="card">#}
+{#        <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">#}
+{#        <div class="card-content">#}
+{#            <h2 class="card-title">{{ i.PRODUCT.name }}</h2>#}
+{#            <br>#}
+{#            <h2 class="card-title">User :{{ i.USER.name }}</h2><br>#}
+{#            <p class="card-description">{{ i.date }}</p>#}
+{#            <p class="card-description">{{ i.time }}</p>#}
+{#            <p class="card-description">{{ i.status }}</p>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#{% endfor %}#}
+{#</div>#}
+{#</body>#}
+{##}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+
+
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#  #}
+{#    <style>#}
+{#      .advance-search {#}
+{#    display: flex;#}
+{#    flex-direction: column; /* Stack items vertically */#}
+{#    align-items: center; /* Center horizontally */#}
+{#}#}
+{##}
+{#.search-container {#}
+{#    display: flex;#}
+{#    align-items: center; /* Center vertically */#}
+{##}
+{##}
+{#.form-control {#}
+{#    margin-right: 10px; /* Space between input and button */#}
+{#    width: 300px; /* Adjust as needed */#}
+{#    min-width: 200px; /* Optional: ensure a minimum width */#}
+{##}
+{##}
+{#.btn {#}
+{#    margin-left: 10px; /* Space between buttons */#}
+{##}
+{##}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<br/>#}
+{#<br/>#}
+{#<br/>#}
+{##}
+{#<div class="card-body">#}
+{#                    <div class="row">#}
+{#<div class="edit-profile-container">#}
+{#    <div class="edit-profile-card">#}
+{#        <div class="edit-profile-header">#}
+{#            <h1>TEST DRIVE BOOKINGS</h1>#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{#<table class="table table-bordered">#}
+{#    <tr>#}
+{#        <th>Name</th>#}
+{#        <th>User</th>#}
+{#        <th>Phone No</th>#}
+{#        <th>Date</th>#}
+{#        <th>Time</th>#}
+{#        <th>Status</th>#}
+{#    </tr>#}
+{##}
+{#{% for i in values %}#}
+{#    <tr>#}
+{##}
+{#      <td> <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">#}
+{#          <br/>#}
+{#          {{ i.PRODUCT.name }}#}
+{#        </td>#}
+{#        <td>{{ i.USER.name }}</td>#}
+{#        <td>{{ i.USER.phone }}</td>#}
+{#           <td> {{ i.date }}</td>#}
+{#            <td> {{ i.time }}</td>#}
+{#            <td> {{ i.status }}</td>#}
+{##}
+{#    </tr>#}
+{#{% endfor %}#}
+{#<tr><td colspan="6">#}
+{# <div class="card-footer d-flex justify-content-between align-items-center">#}
+{#                    <div>#}
+{#                        {% if values.has_previous %}#}
+{#                            <a href="?page=1" class="btn btn-light">First</a>#}
+{#                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                    <div>#}
+{#                        {% if values.has_next %}#}
+{#                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>#}
+{#                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#</td>#}
+{#</tr>#}
+{#</table>#}
+{#</div>#}
+{##}
+{#</div>#}
+{#                    </div></div>#}
+{#</body>#}
+{##}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+{##}
+{##}
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+{#    <head>#}
+{#    <style>#}
+{#      .advance-search {#}
+{#    display: flex;#}
+{#    flex-direction: column; /* Stack items vertically */#}
+{#    align-items: center; /* Center horizontally */#}
+{#}#}
+{##}
+{#.search-container {#}
+{#    display: flex;#}
+{#    align-items: center; /* Center vertically */#}
+{#}#}
+{##}
+{#.form-control {#}
+{#    margin-right: 10px; /* Space between input and button */#}
+{#    width: 300px; /* Adjust as needed */#}
+{#    min-width: 200px; /* Optional: ensure a minimum width */#}
+{#}#}
+{##}
+{#.btn {#}
+{#    margin-left: 10px; /* Space between buttons */#}
+{#}#}
+{##}
+{#    </style>#}
+{#    </head>#}
+{##}
+{#<body>#}
+{##}
+{##}
+{#<br><br>#}
+{##}
+{#<form id="form1" name="form1" method="post" action="">#}
+{#<div class="container">#}
+{#    <div class="row">#}
+{#        <div class="col-md-12">#}
+{#            <!-- PRODUCTS LIST -->#}
+{#            <div class="card">#}
+{#                <div class="card-header">#}
+{#                    <h3 class="card-title">TEST DRIVE BOOKINGS</h3>#}
+{#                </div>#}
+{#                <!-- /.card-header -->#}
+{#                <div class="card-body">#}
+{#                    <div class="row">#}
+{#                        <table class="table table-bordered">#}
+{#                            <thead>#}
+{#                                <tr>#}
+{#                                    <th>Name</th>#}
+{#                                    <th>User</th>#}
+{#                                    <th>Phone No</th>#}
+{#                                    <th>Date</th>#}
+{#                                    <th>Time</th>#}
+{#                                    <th>Status</th>#}
+{#                                </tr>#}
+{#                            </thead>#}
+{#                            <tbody>#}
+{#                                {% for i in values %}#}
+{#                                <tr>#}
+{#                                          <td> <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="round-image" height="100">#}
+{#          <br/>#}
+{#          {{ i.PRODUCT.name }}#}
+{#        </td>#}
+{#        <td>{{ i.USER.name }}</td>#}
+{#        <td>{{ i.USER.phone }}</td>#}
+{#           <td> {{ i.date }}</td>#}
+{#            <td> {{ i.time }}</td>#}
+{#            <td> {{ i.status }}</td>#}
+{#                                </tr>#}
+{#                                {% endfor %}#}
+{#                            </tbody>#}
+{#                        </table>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!-- /.card-body -->#}
+{#                <div class="card-footer d-flex justify-content-between align-items-center">#}
+{#                    <div>#}
+{#                        {% if values.has_previous %}#}
+{#                            <a href="?page=1" class="btn btn-light">First</a>#}
+{#                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                    <div>#}
+{#                        {% if values.has_next %}#}
+{#                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>#}
+{#                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!-- /.card-footer -->#}
+{#            </div>#}
+{#            <!--/.card -->#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#</form>#}
+{#</body>#}
+{#{% endblock %}#}
+
+{#{% extends 'ai_sub.html' %}#}
+{#{% block body %}#}
+{##}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#  #}
+{#    <style>#}
+{#      .advance-search {#}
+{#    display: flex;#}
+{#    flex-direction: column; /* Stack items vertically */#}
+{#    align-items: center; /* Center horizontally */#}
+{#}#}
+{##}
+{#.search-container {#}
+{#    display: flex;#}
+{#    align-items: center; /* Center vertically */#}
+
+{##}
+{#.form-control {#}
+{#    margin-right: 10px; /* Space between input and button */#}
+{#    width: 300px; /* Adjust as needed */#}
+{#    min-width: 200px; /* Optional: ensure a minimum width */#}
+
+{##}
+{#.btn {#}
+{#    margin-left: 10px; /* Space between buttons */#}
+
+{##}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<br/>#}
+{#<br/>#}
+{#<br/>#}
+{##}
+{#<div class="card-body">#}
+{#                    <div class="row">#}
+{#<div class="edit-profile-container">#}
+{#    <div class="edit-profile-card">#}
+{#        <div class="edit-profile-header">#}
+{#            <h1>TEST DRIVE BOOKINGS</h1>#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{#<table class="table table-bordered">#}
+{#    <tr>#}
+{#        <th>Name</th>#}
+{#        <th>User</th>#}
+{#        <th>Phone No</th>#}
+{#        <th>Date</th>#}
+{#        <th>Time</th>#}
+{#        <th>Status</th>#}
+{#    </tr>#}
+{##}
+{#{% for i in values %}#}
+{#    <tr>#}
+{##}
+{#      <td> <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">#}
+{#          <br/>#}
+{#          {{ i.PRODUCT.name }}#}
+{#        </td>#}
+{#        <td>{{ i.USER.name }}</td>#}
+{#        <td>{{ i.USER.phone }}</td>#}
+{#           <td> {{ i.date }}</td>#}
+{#            <td> {{ i.time }}</td>#}
+{#            <td> {{ i.status }}</td>#}
+{##}
+{#    </tr>#}
+{#{% endfor %}#}
+{#<tr><td colspan="6">#}
+{# <div class="card-footer d-flex justify-content-between align-items-center">#}
+{#                    <div>#}
+{#                        {% if values.has_previous %}#}
+{#                            <a href="?page=1" class="btn btn-light">First</a>#}
+{#                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                    <div>#}
+{#                        {% if values.has_next %}#}
+{#                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>#}
+{#                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+{#                </div>#}
+{#</td>#}
+{#</tr>#}
+{#</table>#}
+{#</div>#}
+{##}
+{#</div>#}
+{#                    </div></div>#}
+{#</body>#}
+{##}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+
+
 {% extends 'ai_sub.html' %}
 {% block body %}
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card with Image</title>
+    <head>
     <style>
+      .advance-search {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center horizontally */
+}
 
+.search-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
 
-        .card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 300px;
-            margin-bottom: 10px;
+.form-control {
+    margin-right: 10px; /* Space between input and button */
+    width: 300px; /* Adjust as needed */
+    min-width: 200px; /* Optional: ensure a minimum width */
+}
 
-        }
+.btn {
+    margin-left: 10px; /* Space between buttons */
+}
 
-        .card-image {
-            width: 100%;
-
-        }
-
-        .card-content {
-            padding: 16px;
-        }
-
-        .card-title {
-            margin: 0;
-            font-size: 1.5em;
-        }
-
-        .card-description {
-            margin: 10px 0 0;
-            color: #555;
-        }
     </style>
-</head>
+    </head>
+
 <body>
-<br/>
-<br/>
-<br/>
-<div class="edit-profile-container">
-    <div class="edit-profile-card">
-        <div class="edit-profile-header">
-            <h1>TEST DRIVE BOOKINGS</h1>
-        </div>
-
-<div class="row">
 
 
-{% for i in data %}    <div class="col-sm-3">
-    <div class="card">
-        <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">
-        <div class="card-content">
-            <h2 class="card-title">{{ i.PRODUCT.name }}</h2>
-            <p class="card-description">{{ i.date }}</p>
-            <p class="card-description">{{ i.time }}</p>
-            <p class="card-description">{{ i.status }}</p>
+<br><br>
+
+<form id="form1" name="form1" method="post" action="">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- PRODUCTS LIST -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">TEST DRIVE BOOKINGS</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>User</th>
+                                    <th>Phone No</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in values %}
+                                <tr>
+                                          <td> <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="round-image" height="100">
+          <br/>
+          {{ i.PRODUCT.name }}
+        </td>
+        <td>{{ i.USER.name }}</td>
+        <td>{{ i.USER.phone }}</td>
+           <td> {{ i.date }}</td>
+            <td> {{ i.status }}</td>
+                                </tr>
+                                {% endfor %}
+                            <tr>
+                                <td colspan="5">
+                                      <div class="card-footer d-flex justify-content-between align-items-center">
+                    <div>
+                        {% if values.has_previous %}
+                            <a href="?page=1" class="btn btn-light">First</a>
+                            <a href="?page={{ values.previous_page_number }}" class="btn btn-light">Previous</a>
+                        {% endif %}
+                    </div>
+                    <div>
+                        {% if values.has_next %}
+                            <a href="?page={{ values.paginator.num_pages }}" class="btn btn-light">Last</a>
+                            <a style="margin-left: 60px;" href="?page={{ values.next_page_number }}" class="btn btn-light">Next</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                     <!-- /.card-footer -->
+            </div>
+            <!--/.card -->
         </div>
     </div>
 </div>
-{% endfor %}
-</div>
+
+</form>
 </body>
-
-
-    </div>
-</div>
-
 {% endblock %}

@@ -1,10 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'User/base.html' %}
+
+{% block body %}
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card with Image</title>
+    <style>
+        .card-container {
+            background: white;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+{#            justify-content: space-around; /* Centers the cards within the row */#}
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            margin: 10px; /* Adds consistent margin */
+            box-sizing: border-box;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100%;
+            object-fit: cover; /* Ensures the image covers the container proportionally */
+            height: 200px;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .card-description {
+            margin: 10px 0 0;
+            color: #555;
+        }
+
+        .row {
+            padding: 20px;
+        }
+    </style>
+
+
+
 </head>
 <body>
-$END$
+    <br/>
+    <br/>
+    <br/>
+    <div class="edit-profile-container"  style="background: white;">
+        <div class="edit-profile-card">
+            <div class="edit-profile-header" style="background: white;">
+{#                <h1>TEST DRIVE BOOKINGS</h1>#}
+            </div>
+
+            <div class="row card-container"> <!-- Modified class for alignment -->
+                {% for i in val %}
+                <div class="card">
+                    <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image">
+                    <div class="card-content">
+                        <h2 class="card-title">{{ i.PRODUCT.name }}</h2>
+                        <p class="card-description">{{ i.date }}</p>
+                        <p class="card-description">{{ i.time }}</p>
+                        <p class="card-description">{{ i.status }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </body>
-</html>
+{% endblock %}

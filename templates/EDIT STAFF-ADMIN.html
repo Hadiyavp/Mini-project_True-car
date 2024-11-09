@@ -2,54 +2,47 @@
 {% block body %}
 
 <div class="container mt-5 d-flex justify-content-center">
-  <div class="card shadow-lg p-3 mb-5 bg-white rounded animate__animated animate__fadeIn" style="max-width: 380px; width: 100%;">
-    <div class="card-header bg-primary text-white text-center">
+  <div class="card shadow-lg p-4 mb-5 bg-white rounded animate__animated animate__fadeIn" style="max-width: 800px; width: 100%;">
+    <div class="card-header bg-dark text-white text-center rounded-top">
       <h5>EDIT STAFF</h5>
     </div>
     <div class="card-body">
-<form id="form1" name="form1" method="post" action="{% url 'edit_stafff' %}" enctype="multipart/form-data">
+      <form id="form1" name="form1" method="post" action="{% url 'edit_stafff' %}" enctype="multipart/form-data">
 
-
-
-
-
-
-
-       <div class="mb-3">
+        <div class="mb-3">
           <label for="name" class="form-label">NAME</label>
           <input type="text" name="textfield" id="name" class="form-control form-control-lg" value="{{ i.name }}" required>
         </div>
 
         <div class="mb-3">
-          <label for="model" class="form-label">PLACE</label>
-          <input type="text" name="textfield2" id="model" class="form-control form-control-lg" value="{{ i.place }}" required>
-        </div>
-
-
-        <div class="mb-3">
-          <label for="type" class="form-label">POST</label>
-          <input type="text" name="textfield3" id="type" class="form-control form-control-lg" value="{{ i.post }}" required>
+          <label for="place" class="form-label">PLACE</label>
+          <input type="text" name="textfield2" id="place" class="form-control form-control-lg" value="{{ i.place }}" required>
         </div>
 
         <div class="mb-3">
-          <label for="details" class="form-label">PIN</label>
-          <textarea name="textfield4" id="details" class="form-control form-control-lg" rows="2" required>{{ i.pin }}</textarea>
+          <label for="post" class="form-label">POST</label>
+          <input type="text" name="textfield3" id="post" class="form-control form-control-lg" value="{{ i.post }}" required>
         </div>
 
         <div class="mb-3">
-          <label for="price" class="form-label">PHONE</label>
-          <input type="text" name="textfield5" id="price" class="form-control form-control-lg" value="{{ i.phone }}" required>
+          <label for="pin" class="form-label">PIN</label>
+          <textarea name="textfield4" id="pin" class="form-control form-control-lg" rows="2" required>{{ i.pin }}</textarea>
         </div>
+
         <div class="mb-3">
-          <label for="price" class="form-label">Image</label>
-          <input type="file" name="img" id="price" class="form-control form-control-lg" value="{{ i.phone }}" >
+          <label for="phone" class="form-label">PHONE</label>
+          <input type="text" name="textfield5" id="phone" class="form-control form-control-lg" value="{{ i.phone }}" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="image" class="form-label">Image</label>
+          <input type="file" name="img" id="image" class="form-control form-control-lg" accept="image/*">
         </div>
 
         <div class="text-center">
           <button type="submit" class="btn btn-success btn-lg btn-block">UPDATE</button>
         </div>
-</form>
-
+      </form>
     </div>
   </div>
 </div>
@@ -71,6 +64,7 @@
   .form-control {
     border: 2px solid #ced4da;
     transition: border-color 0.3s, box-shadow 0.3s;
+    border-radius: 8px; /* Rounded corners for inputs */
   }
 
   .form-control:focus {
@@ -84,13 +78,14 @@
 
   /* Button Effects */
   .btn-success {
-    background: linear-gradient(45deg, #28a745, #218838);
+    background: linear-gradient(45deg, #131415, #131415);
     border: none;
     transition: background 0.3s, transform 0.3s;
+    border-radius: 25px; /* Rounded button */
   }
 
   .btn-success:hover {
-    background: linear-gradient(45deg, #218838, #28a745);
+    background: linear-gradient(45deg, #131415, #131415);
     transform: scale(1.05);
   }
 
