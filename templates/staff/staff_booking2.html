@@ -1,0 +1,75 @@
+{% extends 'ai_sub.html' %}
+{% block body %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card with Image</title>
+    <style>
+
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            margin-bottom: 10px;
+
+        }
+
+        .card-image {
+            width: 100%;
+
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .card-title {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .card-description {
+            margin: 10px 0 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<br/>
+<br/>
+<br/>
+<div class="edit-profile-container">
+    <div class="edit-profile-card">
+        <div class="edit-profile-header">
+            <h1>CAR BOOKINGS</h1>
+        </div>
+
+<div class="row">
+
+
+{% for i in data %}    <div class="col-sm-3">
+    <div class="card">
+        <img src="{{ i.PRODUCT.image.url }}" alt="Card Image" class="card-image" height="200">
+        <div class="card-content">
+            <h2 class="card-title">{{ i.PRODUCT.name }}</h2>
+            <br>
+            <h2 class="card-title">User :{{ i.USER.name }}</h2><br>
+            <p class="card-description">{{ i.date }}</p>
+            <p class="card-description">{{ i.time }}</p>
+            <p class="card-description">{{ i.status }}</p>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+</body>
+
+
+    </div>
+</div>
+
+{% endblock %}
